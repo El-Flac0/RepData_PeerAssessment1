@@ -4,19 +4,27 @@ output:
   html_document:
     keep_md: true
 ---
-
+```{r global_options, include=TRUE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path='Figs/',
+                      echo=FALSE, warning=FALSE, message=FALSE)
+```
 
 ## Loading and Preprocessing the Activity Monitoring Data
 
 Ensure the activity.csv file is in the current working directory.
 
-```{r, echo=TRUE}
-setwd("~/GitHub/RepData_PeerAssessment1")
+```{r, echo=FALSE}
 require(dplyr)
 require(ggplot2)
 require(reshape2)
 require(timeDate)
 require(lattice)
+library(knitr)
+```
+
+```{r, echo=TRUE}
+setwd("~/GitHub/RepData_PeerAssessment1")
+
 steps <- read.csv("activity.csv")
 ```
 
@@ -127,7 +135,7 @@ is `r stepmedian`.
 The mean number of steps per day in the imputed data is `r impStepMean`, and the
 median number of steps in the imputed data is `r impStepMedian`.
 
-Imputation does not affect the mean and median values.
+Imputation does not appear to affect mean and median values.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -154,7 +162,7 @@ weekDat1 <- weekDat %>%
 weekDat1 <- weekDat1[!duplicated(weekDat1),]
 #The Plot
 ggplot(weekDat1, aes(x=interval, y=steps, colour=weekday)) + geom_line() + 
-  ggtitle("Panel Plot of Step Count (Weekend vs. Weekday") + scale_x_continuous(breaks=(seq(0,2500, by=200))) + xlab("5-Minute Interval") + ylab("Mean Step Count") + facet_grid(weekday~.)
+  ggtitle("Panel Plot of Step Count (Weekend vs. Weekday)") + scale_x_continuous(breaks=(seq(0,2500, by=200))) + xlab("5-Minute Interval") + ylab("Mean Step Count") + facet_grid(weekday~.)
 ```
 
 As can be seen from the panel plot, the individual has a higher level of activity
