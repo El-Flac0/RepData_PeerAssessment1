@@ -42,7 +42,8 @@ steptotals <- steptotals[-1]
 A histogram of the total number of steps taken each day
 
 ```{r, echo=TRUE}
-hist(steptotals, breaks=10, xlim=c(0,25000), xlab="Daily Total Step Count")
+hist(steptotals, breaks=10, xlim=c(0,25000), xlab="Daily Total Step Count",
+     main="Histogram of Total Steps")
 ```
 
 Now we can calulate the mean and median step counts.
@@ -65,7 +66,7 @@ intervals <- wsteps[1]
 stepMean <- transmute(wsteps, intSteps=rowMeans(wsteps[-1], na.rm=TRUE))
 intStepMean <- cbind(intervals, stepMean)
 #The Plot
-ggplot(intStepMean, aes(x=interval, y=intSteps)) + geom_line() + xlim(0, 2500) + scale_x_continuous(breaks=(seq(0,2500, by=200))) + xlab("5-Minute Interval") + ylab("Mean Step Count")
+ggplot(intStepMean, aes(x=interval, y=intSteps)) + geom_line() + ggtitle("Mean Step Count per Interval") + scale_x_continuous(breaks=(seq(0,2500, by=200))) + xlab("5-Minute Interval") + ylab("Mean Step Count")
 ```
 
 Which 5-minute interval, on average across all the days in the dataset, contains
@@ -113,7 +114,8 @@ histTotals <- stepsImpute %>%
 # remove duplicate rows:
 histTotals <- histTotals[!duplicated(histTotals),]
 # The plot
-hist(histTotals$steps, breaks=10, xlim=c(0,25000), xlab="Daily Total Step Count w. imputed data")
+hist(histTotals$steps, breaks=10, xlab="Daily Total Step Count",  
+     main="Histogram of Daily Total Step Count w. imputed data")
 # reporting
 impStepMean <- mean(histTotals$steps)
 impStepMedian <- median(histTotals$steps)
@@ -151,7 +153,8 @@ weekDat1 <- weekDat %>%
 #remove duplicates
 weekDat1 <- weekDat1[!duplicated(weekDat1),]
 #The Plot
-ggplot(weekDat1, aes(x=interval, y=steps, colour=weekday)) + geom_line() + xlim(0, 2500) + scale_x_continuous(breaks=(seq(0,2500, by=200))) + xlab("5-Minute Interval") + ylab("Mean Step Count") + facet_grid(weekday~.)
+ggplot(weekDat1, aes(x=interval, y=steps, colour=weekday)) + geom_line() + 
+  ggtitle("Panel Plot of Step Count (Weekend vs. Weekday") + scale_x_continuous(breaks=(seq(0,2500, by=200))) + xlab("5-Minute Interval") + ylab("Mean Step Count") + facet_grid(weekday~.)
 ```
 
 As can be seen from the panel plot, the individual has a higher level of activity
