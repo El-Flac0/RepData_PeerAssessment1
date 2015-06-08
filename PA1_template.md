@@ -1,8 +1,9 @@
 # Reproducible Research: Peer Assessment 1
+Global Options
 
 ```r
 knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path='Figs/',
-                      echo=FALSE, warning=FALSE, message=FALSE)
+                      echo=TRUE, warning=FALSE, message=FALSE)
 ```
 
 ## Loading and Preprocessing the Activity Monitoring Data
